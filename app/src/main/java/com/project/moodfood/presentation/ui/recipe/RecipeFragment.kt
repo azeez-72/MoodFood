@@ -1,4 +1,4 @@
-package com.project.moodfood
+package com.project.moodfood.presentation.ui.recipe
 
 import android.os.Bundle
 import android.view.LayoutInflater

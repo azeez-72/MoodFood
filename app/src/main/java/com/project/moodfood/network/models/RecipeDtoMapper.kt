@@ -1,11 +1,11 @@
 package com.project.moodfood.network.models
 
-import com.project.moodfood.domain.models.RecipeModel
+import com.project.moodfood.domain.models.Recipe
 import com.project.moodfood.domain.models.util.DomainMapper
 
-class RecipeDtoMapper : DomainMapper<RecipeDto, RecipeModel> {
-    override fun mapToDomainModel(model: RecipeDto): RecipeModel {
-        return RecipeModel(
+class RecipeDtoMapper : DomainMapper<RecipeDto, Recipe> {
+    override fun mapToDomainModel(model: RecipeDto): Recipe {
+        return Recipe(
             id = model.pk,
             title = model.title,
             publisher = model.publisher,
@@ -20,7 +20,7 @@ class RecipeDtoMapper : DomainMapper<RecipeDto, RecipeModel> {
         )
     }
 
-    override fun mapFromDomainModel(domainModel: RecipeModel): RecipeDto {
+    override fun mapFromDomainModel(domainModel: Recipe): RecipeDto {
         return RecipeDto(
             pk = domainModel.id,
             title = domainModel.title,
@@ -38,12 +38,12 @@ class RecipeDtoMapper : DomainMapper<RecipeDto, RecipeModel> {
 
     //functions to convert list of entities to list of recipes and vice versa
 
-    fun fromEntityList(initial: List<RecipeDto>) : List<RecipeModel> {
+    fun ToDomainList(initial: List<RecipeDto>) : List<Recipe> {
         return initial.map { mapToDomainModel(it) }  //loop through each element in List of recipe_network_entity and
                                                 //convert to List of recipe using function above
     }
 
-    fun fromRecipeList(initial: List<RecipeModel>) : List<RecipeDto> {
+    fun FromDomainList(initial: List<Recipe>) : List<RecipeDto> {
         return initial.map { mapFromDomainModel(it) }
     }
 }
