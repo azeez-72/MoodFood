@@ -1,4 +1,4 @@
-package com.project.moodfood.domain.models.util
+package com.project.moodfood.domain.util
 
 interface DomainMapper <T, DomainModel> {   //T and DomainModel are datatypes
     fun mapToDomainModel(model: T) : DomainModel    //for get requests

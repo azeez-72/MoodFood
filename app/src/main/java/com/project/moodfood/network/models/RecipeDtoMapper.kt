@@ -1,7 +1,7 @@
 package com.project.moodfood.network.models
 
 import com.project.moodfood.domain.models.Recipe
-import com.project.moodfood.domain.models.util.DomainMapper
+import com.project.moodfood.domain.util.DomainMapper
 
 class RecipeDtoMapper : DomainMapper<RecipeDto, Recipe> {
     override fun mapToDomainModel(model: RecipeDto): Recipe {
