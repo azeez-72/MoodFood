@@ -78,4 +78,5 @@ dependencies {
     kapt "androidx.hilt:hilt-compiler:$hilt_lifecycle_viewmodel"
 
     implementation "com.google.accompanist:accompanist-glide:0.10.0"
+
 }

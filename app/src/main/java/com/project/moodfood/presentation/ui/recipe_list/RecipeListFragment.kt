@@ -6,22 +6,35 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.accompanist.glide.rememberGlidePainter
 import com.google.accompanist.imageloading.ImageLoadState
 import com.project.moodfood.R
+import com.project.moodfood.presentation.ui.components.RecipeCard
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 //import com.google.accompanist.glide.rememberGlidePainter
 
-class RecipeListFragment : Fragment() {
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
+class RecipeListFragment: Fragment() {
+
+    private val viewModel: RecipeListViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,40 +42,21 @@ class RecipeListFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-
-                val painter = rememberGlidePainter(
-                    "https://assets.materialup.com/uploads/b03b23aa-aa69-4657-aa5e-fa5fef2c76e8/preview.png",
-                    fadeIn = true
-                )
-
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text(text = "Hi there")
-
-                    Box {
-                        Image(
-                            painter = painter,
-                            contentDescription = "Image of the food"
-                        )
-
-                        when(painter.loadState) {
-                            is ImageLoadState.Loading -> {
-                                CircularProgressIndicator(Modifier.align(Alignment.Center))
-                            }
-                            is ImageLoadState.Error -> {
-                                Image(
-                                    painter = painterResource(id = R.drawable.foodplaceholder),
-                                    contentDescription = "Error Image",
-                                    modifier = Modifier
-                                        .height(180.dp)
-                                        .fillMaxWidth(),
-                                    contentScale = ContentScale.Crop
-                                )
-                            }
-                            else -> Text(text = "Error!")
+                val recipes = viewModel.recipes.value
+                Scaffold(
+                    backgroundColor = Color.Black
+                ) {
+                    LazyColumn{
+                        itemsIndexed(
+                            items = recipes
+                        ){index, recipe ->
+                            RecipeCard(recipe = recipe, onClick = {})
                         }
                     }
                 }
+
             }
         }
     }
+
 }
